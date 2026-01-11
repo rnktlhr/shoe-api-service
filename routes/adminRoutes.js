@@ -9,7 +9,7 @@ router.use(authController.isAdmin);
 
 // API Keys
 router.get('/api-keys', adminController.getAllApiKeys);
-router.patch('/api-keys/:id/toggle', adminController.toggleApiKeyStatus);
+router.put('/api-keys/:id/toggle', adminController.toggleApiKeyStatus);
 router.delete('/api-keys/inactive', adminController.deleteInactiveApiKeys);
 router.delete('/api-keys/:id', adminController.deleteApiKeyById);
 
