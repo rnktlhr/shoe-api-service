@@ -297,9 +297,7 @@ function populatePlaygroundKeys(keys) {
 document.getElementById('testRequestBtn').addEventListener('click', async () => {
     const endpoint = document.getElementById('playgroundEndpoint').value;
     const apiKey = document.getElementById('playgroundKeySelect').value;
-    const resultDiv = document.getElementById('playgroundResult');
     const resultPre = document.getElementById('resultJson');
-    const statusSpan = document.getElementById('responseStatus');
     const btn = document.getElementById('testRequestBtn');
 
     if (!apiKey) {
@@ -307,52 +305,24 @@ document.getElementById('testRequestBtn').addEventListener('click', async () => 
         return;
     }
 
-    // Tampilkan loading
     btn.disabled = true;
     btn.innerHTML = '⏳ Testing...';
-    resultDiv.style.display = 'block';
     resultPre.textContent = '// Menghubungi server...';
-    statusSpan.textContent = '';
-    statusSpan.className = 'response-status';
 
     try {
-        const startTime = performance.now();
-        const response = await fetch(`${API_URL}${endpoint}`, {
-            method: 'GET',
+        const res = await fetch(`${API_URL}${endpoint}`, {
             headers: {
-                'X-API-Key': apiKey,
-                'Content-Type': 'application/json'
+                'X-API-Key': apiKey
             }
         });
-        const endTime = performance.now();
-        const responseTime = Math.round(endTime - startTime);
-        
-        const data = await response.json();
-        
-        // Update status badge
-        if (response.ok) {
-            statusSpan.textContent = `✅ ${response.status} OK (${responseTime}ms)`;
-            statusSpan.className = 'response-status success';
-        } else {
-            statusSpan.textContent = `❌ ${response.status} Error (${responseTime}ms)`;
-            statusSpan.className = 'response-status error';
-        }
-        
-        // Format JSON agar rapi (indentasi 2 spasi)
+
+        const data = await res.json();
+
         resultPre.textContent = JSON.stringify(data, null, 2);
-        
-        // Scroll ke tampilan hasil
-        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        
-        // Reload stats untuk update request count
-        setTimeout(() => loadApiKeys(), 500);
-        
-    } catch (error) {
-        statusSpan.textContent = '❌ Connection Error';
-        statusSpan.className = 'response-status error';
-        resultPre.textContent = `Error: ${error.message}\n\nPastikan:\n1. Server backend berjalan di ${API_URL}\n2. API Key valid dan aktif\n3. Endpoint tersedia di server`;
+    } catch (err) {
+        resultPre.textContent = `❌ Error:\n${err.message}`;
     } finally {
         btn.disabled = false;
-        btn.innerHTML = '▶️ Test Request';
+        btn.innerHTML = '▶ Test Request';
     }
 });

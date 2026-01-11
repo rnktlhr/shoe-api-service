@@ -1,122 +1,150 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Shoe API</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <style>
-        .auth-container {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 2rem 0;
-        }
-        .auth-box {
-            background: white;
-            padding: 3rem;
-            border-radius: 1rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            width: 100%;
-            max-width: 450px;
-        }
-        .auth-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        .auth-header h1 {
-            color: var(--dark-color);
-            margin-bottom: 0.5rem;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register - Shoe API</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <script src="/js/index.js"></script>
-    <div class="auth-container">
-        <div class="auth-box">
-            <div class="auth-header">
-                <a href="/" style="text-decoration: none; color: inherit;">
-                    <h1>👟 Shoe API</h1>
-                </a>
-                <p>Daftar Akun Baru</p>
-            </div>
 
-            <div id="alertContainer"></div>
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600 px-4">
 
-            <form id="registerForm">
-                <div class="form-group">
-                    <label class="form-label">Username</label>
-                    <input type="text" id="username" class="form-control" placeholder="Pilih username" required>
-                </div>
+  <div class="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8">
 
-                <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" id="email" class="form-control" placeholder="email@example.com" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Password</label>
-                    <input type="password" id="password" class="form-control" placeholder="Minimal 6 karakter" required minlength="6">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Konfirmasi Password</label>
-                    <input type="password" id="confirmPassword" class="form-control" placeholder="Masukkan password kembali" required>
-                </div>
-
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Daftar</button>
-            </form>
-
-            <p class="text-center mt-3">
-                Sudah punya akun? <a href="/login" style="color: var(--primary-color);">Login Sekarang</a>
-            </p>
-
-            <div class="text-center mt-2">
-                <a href="/" class="btn btn-outline" style="width: 100%; margin-top: 0.5rem;">
-                    ← Kembali ke Beranda
-                </a>
-            </div>
-        </div>
+    <!-- Header -->
+    <div class="text-center mb-6">
+      <a href="/" class="text-2xl font-bold text-slate-800 flex justify-center items-center gap-2">
+        👟 Shoe API
+      </a>
+      <p class="text-slate-500 mt-1">Daftar Akun Baru</p>
     </div>
 
-    <script src="/js/auth.js"></script>
-    <script>
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (password !== confirmPassword) {
-                showAlert('error', 'Password dan konfirmasi password tidak cocok!');
-                return;
-            }
-            
-            const result = await register(username, email, password);
-            
-            if (result.success) {
-                showAlert('success', 'Registrasi berhasil! Mengalihkan ke login...');
-                setTimeout(() => {
-                    window.location.href = '/login';
-                }, 2000);
-            } else {
-                showAlert('error', result.message || 'Registrasi gagal. Silakan coba lagi.');
-            }
-        });
+    <!-- Alert -->
+    <div id="alertContainer" class="mb-4"></div>
 
-        function showAlert(type, message) {
-            const alertContainer = document.getElementById('alertContainer');
-            const alertClass = type === 'success' ? 'alert-success' : 'alert-error';
-            alertContainer.innerHTML = `<div class="alert ${alertClass}">${message}</div>`;
-            
-            setTimeout(() => {
-                alertContainer.innerHTML = '';
-            }, 5000);
-        }
-    </script>
+    <!-- Form -->
+    <form id="registerForm" class="space-y-4">
+
+      <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1">
+          Username
+        </label>
+        <input
+          id="username"
+          type="text"
+          required
+          placeholder="Pilih username"
+          class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1">
+          Email
+        </label>
+        <input
+          id="email"
+          type="email"
+          required
+          placeholder="email@example.com"
+          class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1">
+          Password
+        </label>
+        <input
+          id="password"
+          type="password"
+          required
+          minlength="6"
+          placeholder="Minimal 6 karakter"
+          class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1">
+          Konfirmasi Password
+        </label>
+        <input
+          id="confirmPassword"
+          type="password"
+          required
+          placeholder="Masukkan password kembali"
+          class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="w-full py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition">
+        Daftar
+      </button>
+    </form>
+
+    <!-- Footer -->
+    <p class="text-center text-sm text-slate-600 mt-4">
+      Sudah punya akun?
+      <a href="/login" class="text-indigo-600 hover:underline">
+        Login Sekarang
+      </a>
+    </p>
+
+    <a href="/"
+      class="block text-center mt-3 py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100 transition">
+      ← Kembali ke Beranda
+    </a>
+  </div>
+
+  <!-- Auth JS -->
+  <script src="/js/auth.js"></script>
+
+  <!-- Register Logic -->
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      if (password !== confirmPassword) {
+        showAlert('error', 'Password dan konfirmasi password tidak cocok!');
+        return;
+      }
+
+      const result = await register(username, email, password);
+
+      if (result.success) {
+        showAlert('success', 'Registrasi berhasil! Mengalihkan ke login...');
+        setTimeout(() => window.location.href = '/login', 2000);
+      } else {
+        showAlert('error', result.message || 'Registrasi gagal. Silakan coba lagi.');
+      }
+    });
+
+    function showAlert(type, message) {
+      const container = document.getElementById('alertContainer');
+      const color =
+        type === 'success'
+          ? 'bg-green-100 text-green-700 border-green-300'
+          : 'bg-red-100 text-red-700 border-red-300';
+
+      container.innerHTML = `
+        <div class="px-4 py-2 rounded-lg border ${color}">
+          ${message}
+        </div>
+      `;
+
+      setTimeout(() => container.innerHTML = '', 5000);
+    }
+  </script>
+
 </body>
 </html>
