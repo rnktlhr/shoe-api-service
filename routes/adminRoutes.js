@@ -7,11 +7,20 @@ const authController = require('../controllers/authController');
 router.use(authController.verifyToken);
 router.use(authController.isAdmin);
 
-// Admin routes
+// API Keys
 router.get('/api-keys', adminController.getAllApiKeys);
+router.patch('/api-keys/:id/toggle', adminController.toggleApiKeyStatus);
 router.delete('/api-keys/inactive', adminController.deleteInactiveApiKeys);
 router.delete('/api-keys/:id', adminController.deleteApiKeyById);
+
+// Stats & Logs
 router.get('/stats', adminController.getApiStats);
+router.get('/logs', adminController.getActivityLogs);
+
+// Users
 router.get('/users', adminController.getAllUsers);
+router.post('/users', adminController.createUser);
+router.put('/users/:id', adminController.updateUser);
+router.delete('/users/:id', adminController.deleteUser);
 
 module.exports = router;

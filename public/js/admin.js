@@ -370,7 +370,7 @@ async function toggleApiKeyStatus(keyId, currentStatus) {
 
     try {
         const response = await fetch(`${API_URL}/api/admin/api-keys/${keyId}/toggle`, {
-            method: 'PATCH',
+            method: 'PUT', // ⬅️ HARUS PUT, bukan PATCH
             headers: {
                 'Authorization': `Bearer ${getAuthToken()}`,
                 'Content-Type': 'application/json'
@@ -378,6 +378,7 @@ async function toggleApiKeyStatus(keyId, currentStatus) {
         });
 
         const result = await response.json();
+
         if (result.success) {
             alert(`✅ Status berhasil diubah menjadi ${newStatus}!`);
             refreshData();
@@ -389,6 +390,7 @@ async function toggleApiKeyStatus(keyId, currentStatus) {
         alert('❌ Terjadi kesalahan: ' + error.message);
     }
 }
+
 
 /* =========================
    DELETE API KEYS

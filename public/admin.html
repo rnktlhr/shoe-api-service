@@ -363,47 +363,31 @@
     <script src="/js/auth.js"></script>
     <script src="/js/admin.js"></script>
     <script>
-        // Tab switching function
-        function switchTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Remove active class from all tab buttons
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('text-cyan-600', 'border-b-2', 'border-cyan-500', 'bg-cyan-50');
-                btn.classList.add('text-gray-600');
-            });
-            
-            // Show selected tab
-            document.getElementById('tab-' + tabName).classList.add('active');
-            
-            // Add active class to clicked button
-            event.target.classList.remove('text-gray-600');
-            event.target.classList.add('text-cyan-600', 'border-b-2', 'border-cyan-500', 'bg-cyan-50');
-            
-            // Load data for the selected tab
-            if (tabName === 'apikeys') loadApiKeys();
-            if (tabName === 'users') loadUsers();
-            if (tabName === 'logs') loadLogs();
-        }
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (!modal) return;
 
-        // Modal functions
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-        }
+        modal.classList.remove('active');
+        modal.style.display = 'none';
 
-        function showCreateUserModal() {
-            document.getElementById('createUserModal').classList.add('active');
-        }
+        const form = modal.querySelector('form');
+        if (form) form.reset();
+    }
 
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.classList.remove('active');
-            }
+    function showCreateUserModal() {
+        const modal = document.getElementById('createUserModal');
+        modal.style.display = 'flex';
+        modal.classList.add('active');
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.classList.remove('active');
+            event.target.style.display = 'none';
         }
-    </script>
+    }
+</script>
+
 </body>
 </html>
