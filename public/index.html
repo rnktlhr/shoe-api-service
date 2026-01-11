@@ -4,519 +4,434 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shoe API - Premium API Service untuk Data Sepatu</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <style>
-        .hero {
-            min-height: 600px;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            padding: 5rem 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)" /></svg>');
-            opacity: 0.3;
-        }
-        
-        .hero .container {
-            position: relative;
-            z-index: 1;
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-            letter-spacing: -1px;
-        }
-        
-        .hero p {
-            font-size: 1.35rem;
-            margin-bottom: 2.5rem;
-            opacity: 0.95;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .features {
-            padding: 6rem 0;
-            background: white;
-        }
-        
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-        
-        .section-header h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 1rem;
-            letter-spacing: -0.5px;
-        }
-        
-        .section-header p {
-            font-size: 1.125rem;
-            color: #64748b;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .feature-card {
-            background: linear-gradient(135deg, #ffffff, #f8fafc);
-            text-align: center;
-            padding: 2.5rem 2rem;
-            border-radius: 1.25rem;
-            border: 2px solid #e2e8f0;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-8px);
-            border-color: #3b82f6;
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
-        }
-        
-        .feature-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
-        }
-        
-        .feature-card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 0.75rem;
-        }
-        
-        .feature-card p {
-            color: #64748b;
-            line-height: 1.6;
-        }
-        
-        .api-example {
-            padding: 6rem 0;
-            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-        }
-        
-        .code-showcase {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .code-block {
-            background: #1e293b;
-            border-radius: 1.25rem;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            border: 1px solid #334155;
-        }
-        
-        .code-header {
-            background: #0f172a;
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid #334155;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .code-dots {
-            display: flex;
-            gap: 0.5rem;
-        }
-        
-        .code-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-        
-        .code-dot:nth-child(1) { background: #ef4444; }
-        .code-dot:nth-child(2) { background: #f59e0b; }
-        .code-dot:nth-child(3) { background: #10b981; }
-        
-        .code-title {
-            color: #94a3b8;
-            font-size: 0.875rem;
-            margin-left: 1rem;
-            font-weight: 600;
-        }
-        
-        .code-block pre {
-            margin: 0;
-            padding: 1.5rem;
-            overflow-x: auto;
-            color: #e2e8f0;
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 0.9rem;
-            line-height: 1.7;
-        }
-        
-        .pricing {
-            padding: 6rem 0;
-            background: white;
-        }
-        
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .pricing-card {
-            text-align: center;
-            padding: 2.5rem 2rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 1.25rem;
-            background: linear-gradient(135deg, #ffffff, #f8fafc);
-            transition: all 0.4s ease;
-            position: relative;
-        }
-        
-        .pricing-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-        
-        .pricing-card.featured {
-            border-color: #3b82f6;
-            transform: scale(1.05);
-            background: linear-gradient(135deg, #eff6ff, #dbeafe);
-        }
-        
-        .pricing-card.featured::before {
-            content: 'Paling Populer';
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            color: white;
-            padding: 0.375rem 1rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-        }
-        
-        .pricing-card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 1rem;
-        }
-        
-        .pricing-price {
-            font-size: 3rem;
-            font-weight: 800;
-            color: #0f172a;
-            margin: 1rem 0;
-            letter-spacing: -1px;
-        }
-        
-        .pricing-period {
-            color: #64748b;
-            font-size: 1rem;
-            margin-bottom: 2rem;
-        }
-        
-        .pricing-features {
-            text-align: left;
-            margin: 2rem 0;
-            list-style: none;
-            padding: 0;
-        }
-        
-        .pricing-features li {
-            padding: 0.75rem 0;
-            color: #475569;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        
-        .pricing-features li::before {
-            content: '✓';
-            color: #10b981;
-            font-weight: 700;
-            font-size: 1.25rem;
-        }
-        
-        footer {
-            background: linear-gradient(135deg, #0f172a, #1e293b);
-            color: white;
-            padding: 3rem 0;
-            text-align: center;
-        }
-        
-        footer p {
-            margin: 0.5rem 0;
-            opacity: 0.8;
-        }
-        
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.125rem;
-            }
-            
-            .code-showcase {
-                grid-template-columns: 1fr;
-            }
-            
-            .features-grid,
-            .pricing-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .pricing-card.featured {
-                transform: scale(1);
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 20px rgba(6, 182, 212, 0.5)' },
+                            '100%': { boxShadow: '0 0 40px rgba(6, 182, 212, 0.8)' },
+                        }
+                    }
+                }
             }
         }
-    </style>
+    </script>
 </head>
-<body>
-    <nav class="navbar">
-        <div class="container">
-            <a href="/" class="navbar-brand">👟 Shoe API</a>
-            <div class="navbar-menu">
-                <a href="#features">Fitur</a>
-                <a href="/docs">Dokumentasi</a>
-                <a href="#pricing">Harga</a>
-                <a href="/login" class="btn btn-primary btn-sm">Login</a>
+<body class="bg-slate-950 text-white antialiased">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-950/80 backdrop-blur-xl border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="/" class="text-2xl font-black tracking-tight">
+                    <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">👟 Shoe API</span>
+                </a>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="text-slate-300 hover:text-white transition-colors">Fitur</a>
+                    <a href="/docs" class="text-slate-300 hover:text-white transition-colors">Dokumentasi</a>
+                    <a href="#pricing" class="text-slate-300 hover:text-white transition-colors">Harga</a>
+                    <a href="/login" class="px-6 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all hover:scale-105">
+                        Login
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
 
-    <section class="hero">
-        <div class="container">
-            <h1>Premium API Service untuk Data Sepatu</h1>
-            <p>Akses database sepatu terlengkap dengan API yang cepat, aman, dan mudah diintegrasikan</p>
-            <div class="hero-buttons">
-                <a href="/register" class="btn btn-primary">Mulai Gratis →</a>
-                <a href="/docs" class="btn btn-outline">Lihat Dokumentasi</a>
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <!-- Animated Background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(6,182,212,0.15),transparent_50%)]"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(59,130,246,0.15),transparent_50%)]"></div>
+        
+        <!-- Floating Elements -->
+        <div class="absolute top-20 left-10 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl animate-float"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+        
+        <div class="relative z-10 max-w-6xl mx-auto px-6 text-center">
+            <div class="inline-block mb-6 px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full">
+                <span class="text-cyan-400 font-semibold text-sm">✨ API Premium untuk Developer</span>
+            </div>
+            
+            <h1 class="text-6xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight">
+                <span class="bg-gradient-to-r from-white via-cyan-200 to-blue-400 bg-clip-text text-transparent">
+                    Data Sepatu<br/>Super Lengkap
+                </span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed">
+                Akses <span class="text-cyan-400 font-semibold">10.000+</span> data sepatu dari brand ternama dengan API yang <span class="text-blue-400 font-semibold">super cepat</span> dan mudah diintegrasikan
+            </p>
+            
+            <div class="flex flex-wrap gap-4 justify-center items-center">
+                <a href="/register" class="group px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full font-bold text-lg hover:shadow-2xl hover:shadow-cyan-500/50 transition-all hover:scale-105 flex items-center gap-2">
+                    Mulai Gratis
+                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                    </svg>
+                </a>
+                <a href="/docs" class="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full font-bold text-lg hover:bg-white/10 transition-all hover:scale-105">
+                    Lihat Docs
+                </a>
+            </div>
+            
+            <!-- Stats -->
+            <div class="mt-20 grid grid-cols-3 gap-8 max-w-3xl mx-auto">
+                <div class="text-center">
+                    <div class="text-4xl font-black bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">10K+</div>
+                    <div class="text-slate-400 mt-2">Data Sepatu</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-black bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">&lt;100ms</div>
+                    <div class="text-slate-400 mt-2">Response Time</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-black bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">99.9%</div>
+                    <div class="text-slate-400 mt-2">Uptime</div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="features" class="features">
-        <div class="container">
-            <div class="section-header">
-                <h2>Mengapa Memilih Shoe API?</h2>
-                <p>Solusi terbaik untuk mengakses data sepatu secara real-time dengan performa tinggi</p>
+    <!-- Features -->
+    <section id="features" class="relative py-32 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl md:text-6xl font-black mb-6">
+                    <span class="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                        Kenapa Pilih Kami?
+                    </span>
+                </h2>
+                <p class="text-xl text-slate-400 max-w-2xl mx-auto">
+                    API yang dirancang untuk performa maksimal dan kemudahan integrasi
+                </p>
             </div>
             
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Super Cepat</h3>
-                    <p>Response time < 100ms dengan server yang stabil dan reliabel</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>Aman & Terpercaya</h3>
-                    <p>API Key authentication untuk keamanan maksimal data Anda</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Data Lengkap</h3>
-                    <p>Ribuan data sepatu dari berbagai brand ternama dunia</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📱</div>
-                    <h3>Easy Integration</h3>
-                    <p>Mudah diintegrasikan ke aplikasi atau website Anda</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📈</div>
-                    <h3>Dashboard Monitoring</h3>
-                    <p>Monitor penggunaan API Anda secara real-time</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3>Filter & Search</h3>
-                    <p>Filter berdasarkan brand, kategori, harga, dan lainnya</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="docs" class="api-example">
-        <div class="container">
-            <div class="section-header">
-                <h2>Mudah Digunakan</h2>
-                <p>Integrasikan dalam hitungan menit dengan dokumentasi yang lengkap</p>
-            </div>
-            
-            <div class="code-showcase">
-                <div class="code-block">
-                    <div class="code-header">
-                        <div class="code-dots">
-                            <div class="code-dot"></div>
-                            <div class="code-dot"></div>
-                            <div class="code-dot"></div>
-                        </div>
-                        <div class="code-title">Request</div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Feature Card 1 -->
+                <div class="group relative bg-gradient-to-br from-slate-900 to-slate-800 border border-white/10 rounded-3xl p-8 hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="relative">
+                        <div class="text-6xl mb-6">⚡</div>
+                        <h3 class="text-2xl font-bold mb-4">Super Cepat</h3>
+                        <p class="text-slate-400 leading-relaxed">Response time di bawah 100ms dengan server yang stabil dan reliabel</p>
                     </div>
-                    <pre>// Get All Shoes
-fetch('https://api.shoeapi.com/api/v1/shoes', {
-    headers: {
-        'X-API-Key': 'your_api_key_here'
-    }
+                </div>
+                
+                <!-- Feature Card 2 -->
+                <div class="group relative bg-gradient-to-br from-slate-900 to-slate-800 border border-white/10 rounded-3xl p-8 hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="relative">
+                        <div class="text-6xl mb-6">🔒</div>
+                        <h3 class="text-2xl font-bold mb-4">Aman & Terpercaya</h3>
+                        <p class="text-slate-400 leading-relaxed">API Key authentication dan enkripsi untuk keamanan data maksimal</p>
+                    </div>
+                </div>
+                
+                <!-- Feature Card 3 -->
+                <div class="group relative bg-gradient-to-br from-slate-900 to-slate-800 border border-white/10 rounded-3xl p-8 hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="relative">
+                        <div class="text-6xl mb-6">📊</div>
+                        <h3 class="text-2xl font-bold mb-4">Data Lengkap</h3>
+                        <p class="text-slate-400 leading-relaxed">Database 10,000+ sepatu dari Nike, Adidas, Puma, dan brand top lainnya</p>
+                    </div>
+                </div>
+                
+                <!-- Feature Card 4 -->
+                <div class="group relative bg-gradient-to-br from-slate-900 to-slate-800 border border-white/10 rounded-3xl p-8 hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="relative">
+                        <div class="text-6xl mb-6">📱</div>
+                        <h3 class="text-2xl font-bold mb-4">Easy Integration</h3>
+                        <p class="text-slate-400 leading-relaxed">SDK untuk JavaScript, Python, PHP. Dokumentasi lengkap dan jelas</p>
+                    </div>
+                </div>
+                
+                <!-- Feature Card 5 -->
+                <div class="group relative bg-gradient-to-br from-slate-900 to-slate-800 border border-white/10 rounded-3xl p-8 hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="relative">
+                        <div class="text-6xl mb-6">📈</div>
+                        <h3 class="text-2xl font-bold mb-4">Real-time Analytics</h3>
+                        <p class="text-slate-400 leading-relaxed">Dashboard monitoring untuk tracking penggunaan API secara real-time</p>
+                    </div>
+                </div>
+                
+                <!-- Feature Card 6 -->
+                <div class="group relative bg-gradient-to-br from-slate-900 to-slate-800 border border-white/10 rounded-3xl p-8 hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="relative">
+                        <div class="text-6xl mb-6">🎯</div>
+                        <h3 class="text-2xl font-bold mb-4">Advanced Filter</h3>
+                        <p class="text-slate-400 leading-relaxed">Filter by brand, kategori, harga, size, warna, dan parameter lainnya</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Example -->
+    <section class="relative py-32 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl md:text-6xl font-black mb-6">
+                    <span class="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                        Mulai dalam Hitungan Detik
+                    </span>
+                </h2>
+                <p class="text-xl text-slate-400 max-w-2xl mx-auto">
+                    Integrasikan dengan mudah menggunakan API endpoint yang simpel
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-6 max-w-6xl mx-auto">
+                <!-- Request -->
+                <div class="bg-slate-900 border border-white/10 rounded-2xl overflow-hidden">
+                    <div class="bg-slate-800 px-6 py-4 flex items-center justify-between border-b border-white/10">
+                        <div class="flex gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <span class="text-sm text-slate-400 font-mono">request.js</span>
+                    </div>
+                    <pre class="p-6 overflow-x-auto text-sm"><code class="text-slate-300 font-mono leading-relaxed">// Get all shoes
+fetch('https://api.shoeapi.com/v1/shoes', {
+  headers: {
+    'X-API-Key': 'your_api_key'
+  }
 })
 .then(res => res.json())
-.then(data => console.log(data));</pre>
+.then(data => console.log(data));</code></pre>
                 </div>
                 
-                <div class="code-block">
-                    <div class="code-header">
-                        <div class="code-dots">
-                            <div class="code-dot"></div>
-                            <div class="code-dot"></div>
-                            <div class="code-dot"></div>
+                <!-- Response -->
+                <div class="bg-slate-900 border border-white/10 rounded-2xl overflow-hidden">
+                    <div class="bg-slate-800 px-6 py-4 flex items-center justify-between border-b border-white/10">
+                        <div class="flex gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
                         </div>
-                        <div class="code-title">Response</div>
+                        <span class="text-sm text-slate-400 font-mono">response.json</span>
                     </div>
-                    <pre>{
-    "success": true,
-    "data": [
-        {
-            "id": 1,
-            "brand": "Nike",
-            "model": "Air Max 90",
-            "category": "Running",
-            "price": 1299000,
-            "stock": 15
-        }
-    ],
-    "pagination": {
-        "page": 1,
-        "limit": 10,
-        "total": 100
-    }
-}</pre>
+                    <pre class="p-6 overflow-x-auto text-sm"><code class="text-slate-300 font-mono leading-relaxed">{
+  "success": true,
+  "data": [{
+    "id": 1,
+    "brand": "Nike",
+    "model": "Air Max 90",
+    "category": "Running",
+    "price": 1299000,
+    "stock": 15
+  }]
+}</code></pre>
                 </div>
             </div>
             
-            <div class="text-center mt-4">
-                <a href="/docs" class="btn btn-primary">Lihat Dokumentasi Lengkap →</a>
+            <div class="text-center mt-12">
+                <a href="/docs" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full font-bold hover:shadow-2xl hover:shadow-cyan-500/50 transition-all hover:scale-105">
+                    Lihat Dokumentasi Lengkap
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                    </svg>
+                </a>
             </div>
         </div>
     </section>
 
-    <section id="pricing" class="pricing">
-        <div class="container">
-            <div class="section-header">
-                <h2>Pilih Paket yang Sesuai</h2>
-                <p>Mulai gratis dan upgrade kapan saja sesuai kebutuhan Anda</p>
+    <!-- Pricing -->
+    <section id="pricing" class="relative py-32 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl md:text-6xl font-black mb-6">
+                    <span class="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                        Harga yang Fleksibel
+                    </span>
+                </h2>
+                <p class="text-xl text-slate-400 max-w-2xl mx-auto">
+                    Mulai gratis, upgrade kapan saja sesuai kebutuhan Anda
+                </p>
             </div>
             
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <h3>Free</h3>
-                    <div class="pricing-price">Rp 0</div>
-                    <div class="pricing-period">/ bulan</div>
-                    <ul class="pricing-features">
-                        <li>1,000 requests/bulan</li>
-                        <li>1 API Key</li>
-                        <li>Basic Support</li>
-                        <li>Dashboard Monitoring</li>
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Free Plan -->
+                <div class="bg-gradient-to-br from-slate-900 to-slate-800 border border-white/10 rounded-3xl p-8">
+                    <h3 class="text-2xl font-bold mb-2">Free</h3>
+                    <div class="mb-6">
+                        <span class="text-5xl font-black">Rp 0</span>
+                        <span class="text-slate-400">/bulan</span>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <svg class="w-5 h-5 text-cyan-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            1,000 requests/bulan
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <svg class="w-5 h-5 text-cyan-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            1 API Key
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <svg class="w-5 h-5 text-cyan-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            Basic Support
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <svg class="w-5 h-5 text-cyan-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            Dashboard Access
+                        </li>
                     </ul>
-                    <a href="/register" class="btn btn-outline">Mulai Gratis</a>
+                    <a href="/register" class="block w-full py-4 text-center bg-white/5 border border-white/10 rounded-full font-bold hover:bg-white/10 transition-all">
+                        Mulai Gratis
+                    </a>
                 </div>
                 
-                <div class="pricing-card featured">
-                    <h3>Pro</h3>
-                    <div class="pricing-price">Rp 199K</div>
-                    <div class="pricing-period">/ bulan</div>
-                    <ul class="pricing-features">
-                        <li>50,000 requests/bulan</li>
-                        <li>5 API Keys</li>
-                        <li>Priority Support</li>
-                        <li>Advanced Analytics</li>
+                <!-- Pro Plan -->
+                <div class="relative bg-gradient-to-br from-cyan-600 to-blue-600 rounded-3xl p-8 transform scale-105 shadow-2xl shadow-cyan-500/25">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-6 py-2 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full text-slate-900 font-bold text-sm">
+                        🔥 MOST POPULAR
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Pro</h3>
+                    <div class="mb-6">
+                        <span class="text-5xl font-black">Rp 199K</span>
+                        <span class="text-white/80">/bulan</span>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            50,000 requests/bulan
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            5 API Keys
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            Priority Support
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            Advanced Analytics
+                        </li>
                     </ul>
-                    <a href="/register" class="btn btn-primary">Upgrade ke Pro</a>
+                    <a href="/register" class="block w-full py-4 text-center bg-white text-blue-600 rounded-full font-bold hover:bg-white/90 transition-all">
+                        Upgrade ke Pro
+                    </a>
                 </div>
                 
-                <div class="pricing-card">
-                    <h3>Enterprise</h3>
-                    <div class="pricing-price">Custom</div>
-                    <div class="pricing-period">Hubungi kami</div>
-                    <ul class="pricing-features">
-                        <li>Unlimited requests</li>
-                        <li>Unlimited API Keys</li>
-                        <li>24/7 Support</li>
-                        <li>Custom Integration</li>
+                <!-- Enterprise Plan -->
+                <div class="bg-gradient-to-br from-slate-900 to-slate-800 border border-white/10 rounded-3xl p-8">
+                    <h3 class="text-2xl font-bold mb-2">Enterprise</h3>
+                    <div class="mb-6">
+                        <span class="text-5xl font-black">Custom</span>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <svg class="w-5 h-5 text-cyan-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            Unlimited requests
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <svg class="w-5 h-5 text-cyan-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            Unlimited API Keys
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <svg class="w-5 h-5 text-cyan-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            24/7 Support
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-300">
+                            <svg class="w-5 h-5 text-cyan-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            Custom Integration
+                        </li>
                     </ul>
-                    <a href="#" class="btn btn-secondary">Hubungi Sales</a>
+                    <a href="#" class="block w-full py-4 text-center bg-white/5 border border-white/10 rounded-full font-bold hover:bg-white/10 transition-all">
+                        Hubungi Sales
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div class="container">
-            <p style="font-size: 1.125rem; font-weight: 600;">Shoe API</p>
-            <p>&copy; 2025 Shoe API. All rights reserved.</p>
-            <p style="margin-top: 1rem;">Built with ❤️ for developers</p>
+    <!-- Footer -->
+    <footer class="relative py-16 px-6 border-t border-white/10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center">
+                <div class="text-3xl font-black mb-4">
+                    <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">👟 Shoe API</span>
+                </div>
+                <p class="text-slate-400 mb-2">&copy; 2025 Shoe API. All rights reserved.</p>
+                <p class="text-slate-500">Built with ❤️ for developers</p>
+            </div>
+            
+            <!-- Social Links (Optional) -->
+            <div class="flex justify-center gap-6 mt-8">
+                <a href="#" class="text-slate-400 hover:text-cyan-400 transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/>
+                    </svg>
+                </a>
+                <a href="#" class="text-slate-400 hover:text-cyan-400 transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/>
+                    </svg>
+                </a>
+                <a href="#" class="text-slate-400 hover:text-cyan-400 transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+            </div>
         </div>
     </footer>
 
-    <script src="/js/index.js"></script>
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

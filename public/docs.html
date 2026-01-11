@@ -4,376 +4,411 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Documentation - Shoe API</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/docs.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-    <nav class="navbar">
-        <div class="container">
-            <a href="/" class="navbar-brand">👟 Shoe API</a>
-            <div class="navbar-menu">
-                <a href="/">Home</a>
-                <a href="/docs">Dokumentasi</a>
-                <a href="/login" class="btn btn-primary btn-sm">Login</a>
+<body class="bg-slate-950 text-slate-200">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-slate-950/80 backdrop-blur-xl border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="/" class="text-2xl font-black tracking-tight">
+                    <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">👟 Shoe API</span>
+                </a>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="/" class="text-slate-300 hover:text-white transition-colors">Home</a>
+                    <a href="/docs" class="text-white font-semibold">Dokumentasi</a>
+                    <a href="/login" class="px-6 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all hover:scale-105">
+                        Login
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
 
-    <div class="docs-layout">
-        <aside class="docs-sidebar">
-            <div class="sidebar-section">
-                <h3>Getting Started</h3>
-                <a href="#introduction" class="sidebar-link active">Introduction</a>
-                <a href="#authentication" class="sidebar-link">Authentication</a>
-                <a href="#quickstart" class="sidebar-link">Quick Start</a>
-                <a href="#rate-limits" class="sidebar-link">Rate Limits</a>
-            </div>
+    <!-- Docs Layout -->
+    <div class="flex pt-[72px]">
+        <!-- Sidebar -->
+        <aside class="hidden lg:block w-72 fixed h-[calc(100vh-72px)] overflow-y-auto bg-slate-900/50 border-r border-white/10 backdrop-blur-sm">
+            <div class="p-6 space-y-8">
+                <!-- Getting Started -->
+                <div>
+                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Getting Started</h3>
+                    <div class="space-y-1">
+                        <a href="#introduction" class="block px-3 py-2 rounded-lg text-sm text-cyan-400 bg-cyan-500/10 border-l-2 border-cyan-400 font-medium">Introduction</a>
+                        <a href="#authentication" class="block px-3 py-2 rounded-lg text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">Authentication</a>
+                        <a href="#quickstart" class="block px-3 py-2 rounded-lg text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">Quick Start</a>
+                        <a href="#rate-limits" class="block px-3 py-2 rounded-lg text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">Rate Limits</a>
+                    </div>
+                </div>
 
-            <div class="sidebar-section">
-                <h3>Endpoints</h3>
-                <a href="#get-all-shoes" class="sidebar-link">Get All Shoes</a>
-                <a href="#get-shoe-by-id" class="sidebar-link">Get Shoe by ID</a>
-                <a href="#search-shoes" class="sidebar-link">Search Shoes</a>
-            </div>
+                <!-- Endpoints -->
+                <div>
+                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Endpoints</h3>
+                    <div class="space-y-1">
+                        <a href="#get-all-shoes" class="block px-3 py-2 rounded-lg text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">Get All Shoes</a>
+                        <a href="#get-shoe-by-id" class="block px-3 py-2 rounded-lg text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">Get Shoe by ID</a>
+                        <a href="#search-shoes" class="block px-3 py-2 rounded-lg text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">Search Shoes</a>
+                    </div>
+                </div>
 
-            <div class="sidebar-section">
-                <h3>Reference</h3>
-                <a href="#errors" class="sidebar-link">Error Codes</a>
-                <a href="#data-models" class="sidebar-link">Data Models</a>
+                <!-- Reference -->
+                <div>
+                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Reference</h3>
+                    <div class="space-y-1">
+                        <a href="#errors" class="block px-3 py-2 rounded-lg text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">Error Codes</a>
+                        <a href="#data-models" class="block px-3 py-2 rounded-lg text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">Data Models</a>
+                    </div>
+                </div>
             </div>
         </aside>
 
-        <main class="docs-content">
-            <div class="container">
+        <!-- Main Content -->
+        <main class="flex-1 lg:ml-72">
+            <div class="max-w-5xl mx-auto px-6 py-12 space-y-16">
+                
                 <!-- Introduction -->
-                <section id="introduction" class="docs-section">
-                    <h1>📚 Shoe API Documentation</h1>
-                    <p class="lead">API untuk mengakses database sepatu terlengkap dengan berbagai brand dan kategori.</p>
-
-                    <div class="info-box">
-                        <div><strong>Base URL:</strong> <code>https://api.shoeapi.com/api/v1</code></div>
-                        <div><strong>Version:</strong> 1.0.0</div>
-                        <div><strong>Format:</strong> JSON</div>
+                <section id="introduction" class="scroll-mt-24">
+                    <div class="mb-8">
+                        <h1 class="text-5xl font-black mb-4 bg-gradient-to-r from-white via-cyan-200 to-blue-400 bg-clip-text text-transparent">
+                            📚 API Documentation
+                        </h1>
+                        <p class="text-xl text-slate-400">API untuk mengakses database sepatu terlengkap dengan berbagai brand dan kategori</p>
                     </div>
 
-                    <h3>Fitur Utama</h3>
-                    <ul style="line-height: 2; color: #4b5563; margin-left: 1.5rem; margin-top: 1rem;">
-                        <li>✅ RESTful API dengan response JSON</li>
-                        <li>✅ Autentikasi menggunakan API Key</li>
-                        <li>✅ Rate limiting yang fleksibel</li>
-                        <li>✅ Pagination untuk dataset besar</li>
-                        <li>✅ Filter dan search yang powerful</li>
-                    </ul>
+                    <!-- Info Box -->
+                    <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-2xl p-6 space-y-3">
+                        <div class="flex items-center gap-3">
+                            <span class="text-cyan-400 font-semibold">Base URL:</span>
+                            <code class="px-3 py-1 bg-slate-900 rounded-lg text-cyan-300 font-mono text-sm">https://api.shoeapi.com/api/v1</code>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-cyan-400 font-semibold">Version:</span>
+                            <span class="text-white">1.0.0</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-cyan-400 font-semibold">Format:</span>
+                            <span class="text-white">JSON</span>
+                        </div>
+                    </div>
+
+                    <!-- Features -->
+                    <div class="mt-8">
+                        <h3 class="text-2xl font-bold mb-4 text-white">Fitur Utama</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-cyan-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-slate-300">RESTful API dengan response JSON</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-cyan-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-slate-300">Autentikasi menggunakan API Key</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-cyan-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-slate-300">Rate limiting yang fleksibel</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-cyan-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-slate-300">Pagination untuk dataset besar</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-6 h-6 text-cyan-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-slate-300">Filter dan search yang powerful</span>
+                            </li>
+                        </ul>
+                    </div>
                 </section>
 
                 <!-- Authentication -->
-                <section id="authentication" class="docs-section">
-                    <h2>🔐 Authentication</h2>
-                    <p>Semua request memerlukan API Key yang valid di header.</p>
+                <section id="authentication" class="scroll-mt-24">
+                    <h2 class="text-4xl font-black mb-6 text-white flex items-center gap-3">
+                        🔐 Authentication
+                    </h2>
+                    <p class="text-slate-400 mb-6">Semua request memerlukan API Key yang valid di header.</p>
 
-                    <h3>Mendapatkan API Key</h3>
-                    <ol class="step-list">
-                        <li>Daftar akun di <a href="/register">halaman registrasi</a></li>
-                        <li>Login ke dashboard Anda</li>
-                        <li>Generate API Key baru</li>
-                        <li>Simpan API Key dengan aman</li>
-                    </ol>
-
-                    <h3>Cara Menggunakan</h3>
-                    <p>Sertakan API Key di header <code>X-API-Key</code>:</p>
-
-                    <div class="code-example">
-                        <div class="code-header">
-                            <span>HTTP Header</span>
-                            <button class="copy-btn" onclick="copyCode(this, 'auth-header')">📋 Copy</button>
+                    <h3 class="text-2xl font-bold mb-4 text-white">Mendapatkan API Key</h3>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex gap-4 items-start bg-slate-900/50 border border-white/10 rounded-xl p-4">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-cyan-500 text-white flex items-center justify-center font-bold">1</div>
+                            <div>
+                                <p class="text-white">Daftar akun di <a href="/register" class="text-cyan-400 hover:text-cyan-300 underline">halaman registrasi</a></p>
+                            </div>
                         </div>
-                        <pre id="auth-header"><code>X-API-Key: your_api_key_here</code></pre>
+                        <div class="flex gap-4 items-start bg-slate-900/50 border border-white/10 rounded-xl p-4">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-cyan-500 text-white flex items-center justify-center font-bold">2</div>
+                            <div>
+                                <p class="text-white">Login ke dashboard Anda</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start bg-slate-900/50 border border-white/10 rounded-xl p-4">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-cyan-500 text-white flex items-center justify-center font-bold">3</div>
+                            <div>
+                                <p class="text-white">Generate API Key baru</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start bg-slate-900/50 border border-white/10 rounded-xl p-4">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-cyan-500 text-white flex items-center justify-center font-bold">4</div>
+                            <div>
+                                <p class="text-white">Simpan API Key dengan aman</p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="warning-box">
-                        ⚠️ <strong>Penting:</strong> Jangan bagikan API Key atau simpan di repository publik.
+                    <h3 class="text-2xl font-bold mb-4 text-white">Cara Menggunakan</h3>
+                    <p class="text-slate-400 mb-4">Sertakan API Key di header <code class="px-2 py-1 bg-slate-800 rounded text-cyan-300 font-mono text-sm">X-API-Key</code>:</p>
+
+                    <!-- Code Block -->
+                    <div class="bg-slate-900 border border-white/10 rounded-2xl overflow-hidden">
+                        <div class="bg-slate-800 px-6 py-4 flex items-center justify-between border-b border-white/10">
+                            <div class="flex gap-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <span class="text-sm text-slate-400 font-mono">HTTP Header</span>
+                        </div>
+                        <pre class="p-6 overflow-x-auto text-sm"><code class="text-slate-300 font-mono">X-API-Key: your_api_key_here</code></pre>
+                    </div>
+
+                    <!-- Warning -->
+                    <div class="mt-6 bg-yellow-500/10 border-l-4 border-yellow-500 rounded-lg p-4">
+                        <div class="flex gap-3">
+                            <svg class="w-6 h-6 text-yellow-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                            </svg>
+                            <div>
+                                <p class="text-yellow-200 font-semibold">Penting!</p>
+                                <p class="text-yellow-100 text-sm mt-1">Jangan bagikan API Key atau simpan di repository publik.</p>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
                 <!-- Quick Start -->
-                <section id="quickstart" class="docs-section">
-                    <h2>⚡ Quick Start</h2>
+                <section id="quickstart" class="scroll-mt-24">
+                    <h2 class="text-4xl font-black mb-6 text-white flex items-center gap-3">
+                        ⚡ Quick Start
+                    </h2>
 
-                    <div class="code-example">
-                        <div class="code-header">
-                            <span>JavaScript</span>
-                            <button class="copy-btn" onclick="copyCode(this, 'quickstart-js')">📋 Copy</button>
-                        </div>
-                        <pre id="quickstart-js"><code>fetch('https://api.shoeapi.com/api/v1/shoes', {
-    headers: {
-        'X-API-Key': 'your_api_key_here'
-    }
+                    <div class="grid lg:grid-cols-2 gap-6">
+                        <!-- Request -->
+                        <div class="bg-slate-900 border border-white/10 rounded-2xl overflow-hidden">
+                            <div class="bg-slate-800 px-6 py-4 flex items-center justify-between border-b border-white/10">
+                                <div class="flex gap-2">
+                                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                </div>
+                                <span class="text-sm text-slate-400 font-mono">request.js</span>
+                            </div>
+                            <pre class="p-6 overflow-x-auto text-sm"><code class="text-slate-300 font-mono leading-relaxed">fetch('https://api.shoeapi.com/api/v1/shoes', {
+  headers: {
+    'X-API-Key': 'your_api_key_here'
+  }
 })
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error('Error:', error));</code></pre>
-                    </div>
+.then(res => res.json())
+.then(data => console.log(data));</code></pre>
+                        </div>
 
-                    <h3>Response</h3>
-                    <div class="code-example">
-                        <pre><code>{
-    "success": true,
-    "data": [
-        {
-            "id": 1,
-            "brand": "Nike",
-            "model": "Air Max 90",
-            "category": "Running",
-            "price": 1299000,
-            "stock": 15
-        }
-    ],
-    "pagination": {
-        "page": 1,
-        "limit": 10,
-        "total": 150
-    }
+                        <!-- Response -->
+                        <div class="bg-slate-900 border border-white/10 rounded-2xl overflow-hidden">
+                            <div class="bg-slate-800 px-6 py-4 flex items-center justify-between border-b border-white/10">
+                                <div class="flex gap-2">
+                                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                </div>
+                                <span class="text-sm text-slate-400 font-mono">response.json</span>
+                            </div>
+                            <pre class="p-6 overflow-x-auto text-sm"><code class="text-slate-300 font-mono leading-relaxed">{
+  "success": true,
+  "data": [{
+    "id": 1,
+    "brand": "Nike",
+    "model": "Air Max 90",
+    "price": 1299000
+  }]
 }</code></pre>
+                        </div>
                     </div>
                 </section>
 
                 <!-- Rate Limits -->
-                <section id="rate-limits" class="docs-section">
-                    <h2>⏱️ Rate Limits</h2>
-                    <p>Rate limiting diterapkan untuk memastikan kualitas layanan.</p>
+                <section id="rate-limits" class="scroll-mt-24">
+                    <h2 class="text-4xl font-black mb-6 text-white flex items-center gap-3">
+                        ⏱️ Rate Limits
+                    </h2>
+                    <p class="text-slate-400 mb-6">Rate limiting diterapkan untuk memastikan kualitas layanan.</p>
 
-                    <table class="docs-table">
-                        <thead>
-                            <tr>
-                                <th>Plan</th>
-                                <th>Rate Limit</th>
-                                <th>Burst</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Free</strong></td>
-                                <td>100 req/hour</td>
-                                <td>10 req/min</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Basic</strong></td>
-                                <td>1,000 req/hour</td>
-                                <td>50 req/min</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Pro</strong></td>
-                                <td>10,000 req/hour</td>
-                                <td>200 req/min</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <h3>Response Headers</h3>
-                    <div class="code-example">
-                        <pre><code>X-RateLimit-Limit: 1000
-X-RateLimit-Remaining: 999
-X-RateLimit-Reset: 1640995200</code></pre>
+                    <div class="overflow-x-auto">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr class="border-b border-white/10">
+                                    <th class="text-left py-4 px-6 text-cyan-400 font-semibold">Plan</th>
+                                    <th class="text-left py-4 px-6 text-cyan-400 font-semibold">Rate Limit</th>
+                                    <th class="text-left py-4 px-6 text-cyan-400 font-semibold">Burst</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-white/10 hover:bg-white/5 transition-colors">
+                                    <td class="py-4 px-6 font-semibold text-white">Free</td>
+                                    <td class="py-4 px-6 text-slate-300">100 req/hour</td>
+                                    <td class="py-4 px-6 text-slate-300">10 req/min</td>
+                                </tr>
+                                <tr class="border-b border-white/10 hover:bg-white/5 transition-colors">
+                                    <td class="py-4 px-6 font-semibold text-white">Basic</td>
+                                    <td class="py-4 px-6 text-slate-300">1,000 req/hour</td>
+                                    <td class="py-4 px-6 text-slate-300">50 req/min</td>
+                                </tr>
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="py-4 px-6 font-semibold text-white">Pro</td>
+                                    <td class="py-4 px-6 text-slate-300">10,000 req/hour</td>
+                                    <td class="py-4 px-6 text-slate-300">200 req/min</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </section>
 
                 <!-- Get All Shoes -->
-                <section id="get-all-shoes" class="docs-section">
-                    <h2>👟 Get All Shoes</h2>
-                    <p>Mendapatkan daftar semua sepatu dengan pagination.</p>
+                <section id="get-all-shoes" class="scroll-mt-24">
+                    <h2 class="text-4xl font-black mb-6 text-white flex items-center gap-3">
+                        👟 Get All Shoes
+                    </h2>
+                    <p class="text-slate-400 mb-6">Mendapatkan daftar semua sepatu dengan pagination.</p>
 
-                    <div class="endpoint-box">
-                        <span class="method method-get">GET</span>
-                        <code>/shoes</code>
+                    <!-- Endpoint -->
+                    <div class="flex items-center gap-4 bg-slate-900/50 border border-white/10 rounded-xl p-4 mb-6">
+                        <span class="px-4 py-2 bg-green-500 text-white font-bold rounded-lg text-sm">GET</span>
+                        <code class="text-cyan-300 font-mono text-lg">/shoes</code>
                     </div>
 
-                    <h3>Query Parameters</h3>
-                    <table class="docs-table">
-                        <thead>
-                            <tr>
-                                <th>Parameter</th>
-                                <th>Type</th>
-                                <th>Required</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><code>page</code></td>
-                                <td>integer</td>
-                                <td>No</td>
-                                <td>Nomor halaman (default: 1)</td>
-                            </tr>
-                            <tr>
-                                <td><code>limit</code></td>
-                                <td>integer</td>
-                                <td>No</td>
-                                <td>Items per page (default: 10, max: 100)</td>
-                            </tr>
-                            <tr>
-                                <td><code>category</code></td>
-                                <td>string</td>
-                                <td>No</td>
-                                <td>Filter by category</td>
-                            </tr>
-                            <tr>
-                                <td><code>brand</code></td>
-                                <td>string</td>
-                                <td>No</td>
-                                <td>Filter by brand</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <h3 class="text-xl font-bold mb-4 text-white">Query Parameters</h3>
+                    <div class="overflow-x-auto mb-6">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr class="border-b border-white/10">
+                                    <th class="text-left py-3 px-4 text-cyan-400 font-semibold text-sm">Parameter</th>
+                                    <th class="text-left py-3 px-4 text-cyan-400 font-semibold text-sm">Type</th>
+                                    <th class="text-left py-3 px-4 text-cyan-400 font-semibold text-sm">Required</th>
+                                    <th class="text-left py-3 px-4 text-cyan-400 font-semibold text-sm">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm">
+                                <tr class="border-b border-white/10">
+                                    <td class="py-3 px-4"><code class="text-cyan-300 bg-slate-800 px-2 py-1 rounded font-mono">page</code></td>
+                                    <td class="py-3 px-4 text-slate-300">integer</td>
+                                    <td class="py-3 px-4 text-slate-300">No</td>
+                                    <td class="py-3 px-4 text-slate-300">Nomor halaman (default: 1)</td>
+                                </tr>
+                                <tr class="border-b border-white/10">
+                                    <td class="py-3 px-4"><code class="text-cyan-300 bg-slate-800 px-2 py-1 rounded font-mono">limit</code></td>
+                                    <td class="py-3 px-4 text-slate-300">integer</td>
+                                    <td class="py-3 px-4 text-slate-300">No</td>
+                                    <td class="py-3 px-4 text-slate-300">Items per page (max: 100)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-                    <h3>Request Example</h3>
-                    <div class="code-example">
-                        <div class="code-header">
-                            <span>cURL</span>
-                            <button class="copy-btn" onclick="copyCode(this, 'get-shoes-curl')">📋 Copy</button>
+                    <!-- Code Example -->
+                    <h3 class="text-xl font-bold mb-4 text-white">Request Example</h3>
+                    <div class="bg-slate-900 border border-white/10 rounded-2xl overflow-hidden mb-6">
+                        <div class="bg-slate-800 px-6 py-4 flex items-center justify-between border-b border-white/10">
+                            <span class="text-sm text-slate-400 font-mono">cURL</span>
                         </div>
-                        <pre id="get-shoes-curl"><code>curl -X GET "https://api.shoeapi.com/api/v1/shoes?page=1&limit=10" \
+                        <pre class="p-6 overflow-x-auto text-sm"><code class="text-slate-300 font-mono">curl -X GET "https://api.shoeapi.com/api/v1/shoes?page=1&limit=10" \
   -H "X-API-Key: your_api_key_here"</code></pre>
                     </div>
 
-                    <h3>Response Example</h3>
-                    <div class="code-example">
-                        <div class="code-header">
-                            <span>200 OK</span>
+                    <h3 class="text-xl font-bold mb-4 text-white">Response Example</h3>
+                    <div class="bg-slate-900 border border-white/10 rounded-2xl overflow-hidden">
+                        <div class="bg-slate-800 px-6 py-4 flex items-center justify-between border-b border-white/10">
+                            <span class="text-sm text-green-400 font-mono">200 OK</span>
                         </div>
-                        <pre><code>{
-    "success": true,
-    "data": [
-        {
-            "id": 1,
-            "brand": "Nike",
-            "model": "Air Max 90",
-            "category": "Running",
-            "size": "42",
-            "color": "White/Black",
-            "price": 1299000,
-            "stock": 15,
-            "description": "Classic running shoes",
-            "image_url": "https://example.com/nike.jpg",
-            "created_at": "2025-01-01T10:00:00Z"
-        }
-    ],
-    "pagination": {
-        "page": 1,
-        "limit": 10,
-        "total": 150,
-        "totalPages": 15
+                        <pre class="p-6 overflow-x-auto text-sm"><code class="text-slate-300 font-mono">{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "brand": "Nike",
+      "model": "Air Max 90",
+      "category": "Running",
+      "price": 1299000,
+      "stock": 15
     }
+  ],
+  "pagination": {
+    "page": 1,
+    "limit": 10,
+    "total": 150
+  }
 }</code></pre>
                     </div>
                 </section>
 
                 <!-- Get Shoe by ID -->
-                <section id="get-shoe-by-id" class="docs-section">
-                    <h2>🔍 Get Shoe by ID</h2>
-                    <p>Mendapatkan detail sepatu berdasarkan ID.</p>
+                <section id="get-shoe-by-id" class="scroll-mt-24">
+                    <h2 class="text-4xl font-black mb-6 text-white flex items-center gap-3">
+                        🔍 Get Shoe by ID
+                    </h2>
+                    <p class="text-slate-400 mb-6">Mendapatkan detail sepatu berdasarkan ID.</p>
 
-                    <div class="endpoint-box">
-                        <span class="method method-get">GET</span>
-                        <code>/shoes/{id}</code>
+                    <div class="flex items-center gap-4 bg-slate-900/50 border border-white/10 rounded-xl p-4 mb-6">
+                        <span class="px-4 py-2 bg-green-500 text-white font-bold rounded-lg text-sm">GET</span>
+                        <code class="text-cyan-300 font-mono text-lg">/shoes/{id}</code>
                     </div>
 
-                    <h3>Path Parameters</h3>
-                    <table class="docs-table">
-                        <thead>
-                            <tr>
-                                <th>Parameter</th>
-                                <th>Type</th>
-                                <th>Required</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><code>id</code></td>
-                                <td>integer</td>
-                                <td>Yes</td>
-                                <td>ID unik sepatu</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <h3>Request Example</h3>
-                    <div class="code-example">
-                        <div class="code-header">
-                            <span>JavaScript</span>
-                            <button class="copy-btn" onclick="copyCode(this, 'get-by-id')">📋 Copy</button>
+                    <div class="bg-slate-900 border border-white/10 rounded-2xl overflow-hidden">
+                        <div class="bg-slate-800 px-6 py-4 border-b border-white/10">
+                            <span class="text-sm text-slate-400 font-mono">request.js</span>
                         </div>
-                        <pre id="get-by-id"><code>fetch('https://api.shoeapi.com/api/v1/shoes/1', {
-    headers: { 'X-API-Key': 'your_api_key_here' }
+                        <pre class="p-6 overflow-x-auto text-sm"><code class="text-slate-300 font-mono">fetch('https://api.shoeapi.com/api/v1/shoes/1', {
+  headers: { 'X-API-Key': 'your_api_key_here' }
 })
 .then(res => res.json())
 .then(data => console.log(data));</code></pre>
                     </div>
-
-                    <h3>Response Example</h3>
-                    <div class="code-example">
-                        <div class="code-header">
-                            <span>200 OK</span>
-                        </div>
-                        <pre><code>{
-    "success": true,
-    "data": {
-        "id": 1,
-        "brand": "Nike",
-        "model": "Air Max 90",
-        "category": "Running",
-        "size": "42",
-        "color": "White/Black",
-        "price": 1299000,
-        "stock": 15
-    }
-}</code></pre>
-                    </div>
                 </section>
 
                 <!-- Search Shoes -->
-                <section id="search-shoes" class="docs-section">
-                    <h2>🔎 Search Shoes</h2>
-                    <p>Mencari sepatu berdasarkan keyword.</p>
+                <section id="search-shoes" class="scroll-mt-24">
+                    <h2 class="text-4xl font-black mb-6 text-white flex items-center gap-3">
+                        🔎 Search Shoes
+                    </h2>
+                    <p class="text-slate-400 mb-6">Mencari sepatu berdasarkan keyword.</p>
 
-                    <div class="endpoint-box">
-                        <span class="method method-get">GET</span>
-                        <code>/shoes/search</code>
+                    <div class="flex items-center gap-4 bg-slate-900/50 border border-white/10 rounded-xl p-4 mb-6">
+                        <span class="px-4 py-2 bg-green-500 text-white font-bold rounded-lg text-sm">GET</span>
+                        <code class="text-cyan-300 font-mono text-lg">/shoes/search</code>
                     </div>
 
-                    <h3>Query Parameters</h3>
-                    <table class="docs-table">
-                        <thead>
-                            <tr>
-                                <th>Parameter</th>
-                                <th>Type</th>
-                                <th>Required</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><code>q</code></td>
-                                <td>string</td>
-                                <td>Yes</td>
-                                <td>Keyword pencarian</td>
-                            </tr>
-                            <tr>
-                                <td><code>page</code></td>
-                                <td>integer</td>
-                                <td>No</td>
-                                <td>Nomor halaman</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <h3>Request Example</h3>
-                    <div class="code-example">
-                        <div class="code-header">
-                            <span>Python</span>
-                            <button class="copy-btn" onclick="copyCode(this, 'search-python')">📋 Copy</button>
+                    <div class="bg-slate-900 border border-white/10 rounded-2xl overflow-hidden">
+                        <div class="bg-slate-800 px-6 py-4 border-b border-white/10">
+                            <span class="text-sm text-slate-400 font-mono">Python</span>
                         </div>
-                        <pre id="search-python"><code>import requests
+                        <pre class="p-6 overflow-x-auto text-sm"><code class="text-slate-300 font-mono">import requests
 
 response = requests.get(
     'https://api.shoeapi.com/api/v1/shoes/search',
@@ -385,142 +420,7 @@ print(response.json())</code></pre>
                 </section>
 
                 <!-- Errors -->
-                <section id="errors" class="docs-section">
-                    <h2>❌ Error Codes</h2>
-                    <p>API menggunakan HTTP status codes standar.</p>
-
-                    <table class="docs-table">
-                        <thead>
-                            <tr>
-                                <th>Code</th>
-                                <th>Meaning</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><code>200</code></td>
-                                <td>OK</td>
-                                <td>Request berhasil</td>
-                            </tr>
-                            <tr>
-                                <td><code>400</code></td>
-                                <td>Bad Request</td>
-                                <td>Parameter tidak valid</td>
-                            </tr>
-                            <tr>
-                                <td><code>401</code></td>
-                                <td>Unauthorized</td>
-                                <td>API Key tidak valid</td>
-                            </tr>
-                            <tr>
-                                <td><code>404</code></td>
-                                <td>Not Found</td>
-                                <td>Resource tidak ditemukan</td>
-                            </tr>
-                            <tr>
-                                <td><code>429</code></td>
-                                <td>Too Many Requests</td>
-                                <td>Rate limit exceeded</td>
-                            </tr>
-                            <tr>
-                                <td><code>500</code></td>
-                                <td>Server Error</td>
-                                <td>Internal server error</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <h3>Error Response Format</h3>
-                    <div class="code-example">
-                        <pre><code>{
-    "success": false,
-    "message": "API Key tidak valid",
-    "error": {
-        "code": "INVALID_API_KEY",
-        "details": "The API key provided is invalid"
-    }
-}</code></pre>
-                    </div>
-                </section>
-
-                <!-- Data Models -->
-                <section id="data-models" class="docs-section">
-                    <h2>📋 Data Models</h2>
-                    
-                    <h3>Shoe Object</h3>
-                    <table class="docs-table">
-                        <thead>
-                            <tr>
-                                <th>Field</th>
-                                <th>Type</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><code>id</code></td>
-                                <td>integer</td>
-                                <td>Unique identifier</td>
-                            </tr>
-                            <tr>
-                                <td><code>brand</code></td>
-                                <td>string</td>
-                                <td>Brand name</td>
-                            </tr>
-                            <tr>
-                                <td><code>model</code></td>
-                                <td>string</td>
-                                <td>Model name</td>
-                            </tr>
-                            <tr>
-                                <td><code>category</code></td>
-                                <td>string</td>
-                                <td>Category type</td>
-                            </tr>
-                            <tr>
-                                <td><code>size</code></td>
-                                <td>string</td>
-                                <td>Shoe size</td>
-                            </tr>
-                            <tr>
-                                <td><code>color</code></td>
-                                <td>string</td>
-                                <td>Color description</td>
-                            </tr>
-                            <tr>
-                                <td><code>price</code></td>
-                                <td>integer</td>
-                                <td>Price in IDR</td>
-                            </tr>
-                            <tr>
-                                <td><code>stock</code></td>
-                                <td>integer</td>
-                                <td>Available stock</td>
-                            </tr>
-                            <tr>
-                                <td><code>description</code></td>
-                                <td>string</td>
-                                <td>Product description</td>
-                            </tr>
-                            <tr>
-                                <td><code>image_url</code></td>
-                                <td>string</td>
-                                <td>Product image URL</td>
-                            </tr>
-                            <tr>
-                                <td><code>created_at</code></td>
-                                <td>datetime</td>
-                                <td>ISO 8601 timestamp</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </section>
-            </div>
-        </main>
-    </div>
-
-    <script src="/js/auth.js"></script>
-    <script src="/js/docs.js"></script>
-</body>
-</html>
+                <section id="errors" class="scroll-mt-24">
+                    <h2 class="text-4xl font-black mb-6 text-white flex items-center gap-3">
+                        ❌ Error Codes
+                    </h2
