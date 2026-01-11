@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation - Shoe API</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/docs.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="navbar-brand">👟 Shoe API</a>
+            <div class="navbar-menu">
+                <a href="/">Home</a>
+                <a href="/docs">Dokumentasi</a>
+                <a href="/login" class="btn btn-primary btn-sm">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h3>Getting Started</h3>
+                <a href="#introduction" class="sidebar-link active">Introduction</a>
+                <a href="#authentication" class="sidebar-link">Authentication</a>
+                <a href="#quickstart" class="sidebar-link">Quick Start</a>
+                <a href="#rate-limits" class="sidebar-link">Rate Limits</a>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Endpoints</h3>
+                <a href="#get-all-shoes" class="sidebar-link">Get All Shoes</a>
+                <a href="#get-shoe-by-id" class="sidebar-link">Get Shoe by ID</a>
+                <a href="#search-shoes" class="sidebar-link">Search Shoes</a>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Reference</h3>
+                <a href="#errors" class="sidebar-link">Error Codes</a>
+                <a href="#data-models" class="sidebar-link">Data Models</a>
+            </div>
+        </aside>
+
+        <main class="docs-content">
+            <div class="container">
+                <!-- Introduction -->
+                <section id="introduction" class="docs-section">
+                    <h1>📚 Shoe API Documentation</h1>
+                    <p class="lead">API untuk mengakses database sepatu terlengkap dengan berbagai brand dan kategori.</p>
+
+                    <div class="info-box">
+                        <div><strong>Base URL:</strong> <code>https://api.shoeapi.com/api/v1</code></div>
+                        <div><strong>Version:</strong> 1.0.0</div>
+                        <div><strong>Format:</strong> JSON</div>
+                    </div>
+
+                    <h3>Fitur Utama</h3>
+                    <ul style="line-height: 2; color: #4b5563; margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>✅ RESTful API dengan response JSON</li>
+                        <li>✅ Autentikasi menggunakan API Key</li>
+                        <li>✅ Rate limiting yang fleksibel</li>
+                        <li>✅ Pagination untuk dataset besar</li>
+                        <li>✅ Filter dan search yang powerful</li>
+                    </ul>
+                </section>
+
+                <!-- Authentication -->
+                <section id="authentication" class="docs-section">
+                    <h2>🔐 Authentication</h2>
+                    <p>Semua request memerlukan API Key yang valid di header.</p>
+
+                    <h3>Mendapatkan API Key</h3>
+                    <ol class="step-list">
+                        <li>Daftar akun di <a href="/register">halaman registrasi</a></li>
+                        <li>Login ke dashboard Anda</li>
+                        <li>Generate API Key baru</li>
+                        <li>Simpan API Key dengan aman</li>
+                    </ol>
+
+                    <h3>Cara Menggunakan</h3>
+                    <p>Sertakan API Key di header <code>X-API-Key</code>:</p>
+
+                    <div class="code-example">
+                        <div class="code-header">
+                            <span>HTTP Header</span>
+                            <button class="copy-btn" onclick="copyCode(this, 'auth-header')">📋 Copy</button>
+                        </div>
+                        <pre id="auth-header"><code>X-API-Key: your_api_key_here</code></pre>
+                    </div>
+
+                    <div class="warning-box">
+                        ⚠️ <strong>Penting:</strong> Jangan bagikan API Key atau simpan di repository publik.
+                    </div>
+                </section>
+
+                <!-- Quick Start -->
+                <section id="quickstart" class="docs-section">
+                    <h2>⚡ Quick Start</h2>
+
+                    <div class="code-example">
+                        <div class="code-header">
+                            <span>JavaScript</span>
+                            <button class="copy-btn" onclick="copyCode(this, 'quickstart-js')">📋 Copy</button>
+                        </div>
+                        <pre id="quickstart-js"><code>fetch('https://api.shoeapi.com/api/v1/shoes', {
+    headers: {
+        'X-API-Key': 'your_api_key_here'
+    }
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error('Error:', error));</code></pre>
+                    </div>
+
+                    <h3>Response</h3>
+                    <div class="code-example">
+                        <pre><code>{
+    "success": true,
+    "data": [
+        {
+            "id": 1,
+            "brand": "Nike",
+            "model": "Air Max 90",
+            "category": "Running",
+            "price": 1299000,
+            "stock": 15
+        }
+    ],
+    "pagination": {
+        "page": 1,
+        "limit": 10,
+        "total": 150
+    }
+}</code></pre>
+                    </div>
+                </section>
+
+                <!-- Rate Limits -->
+                <section id="rate-limits" class="docs-section">
+                    <h2>⏱️ Rate Limits</h2>
+                    <p>Rate limiting diterapkan untuk memastikan kualitas layanan.</p>
+
+                    <table class="docs-table">
+                        <thead>
+                            <tr>
+                                <th>Plan</th>
+                                <th>Rate Limit</th>
+                                <th>Burst</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Free</strong></td>
+                                <td>100 req/hour</td>
+                                <td>10 req/min</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Basic</strong></td>
+                                <td>1,000 req/hour</td>
+                                <td>50 req/min</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pro</strong></td>
+                                <td>10,000 req/hour</td>
+                                <td>200 req/min</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Response Headers</h3>
+                    <div class="code-example">
+                        <pre><code>X-RateLimit-Limit: 1000
+X-RateLimit-Remaining: 999
+X-RateLimit-Reset: 1640995200</code></pre>
+                    </div>
+                </section>
+
+                <!-- Get All Shoes -->
+                <section id="get-all-shoes" class="docs-section">
+                    <h2>👟 Get All Shoes</h2>
+                    <p>Mendapatkan daftar semua sepatu dengan pagination.</p>
+
+                    <div class="endpoint-box">
+                        <span class="method method-get">GET</span>
+                        <code>/shoes</code>
+                    </div>
+
+                    <h3>Query Parameters</h3>
+                    <table class="docs-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Required</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>page</code></td>
+                                <td>integer</td>
+                                <td>No</td>
+                                <td>Nomor halaman (default: 1)</td>
+                            </tr>
+                            <tr>
+                                <td><code>limit</code></td>
+                                <td>integer</td>
+                                <td>No</td>
+                                <td>Items per page (default: 10, max: 100)</td>
+                            </tr>
+                            <tr>
+                                <td><code>category</code></td>
+                                <td>string</td>
+                                <td>No</td>
+                                <td>Filter by category</td>
+                            </tr>
+                            <tr>
+                                <td><code>brand</code></td>
+                                <td>string</td>
+                                <td>No</td>
+                                <td>Filter by brand</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Request Example</h3>
+                    <div class="code-example">
+                        <div class="code-header">
+                            <span>cURL</span>
+                            <button class="copy-btn" onclick="copyCode(this, 'get-shoes-curl')">📋 Copy</button>
+                        </div>
+                        <pre id="get-shoes-curl"><code>curl -X GET "https://api.shoeapi.com/api/v1/shoes?page=1&limit=10" \
+  -H "X-API-Key: your_api_key_here"</code></pre>
+                    </div>
+
+                    <h3>Response Example</h3>
+                    <div class="code-example">
+                        <div class="code-header">
+                            <span>200 OK</span>
+                        </div>
+                        <pre><code>{
+    "success": true,
+    "data": [
+        {
+            "id": 1,
+            "brand": "Nike",
+            "model": "Air Max 90",
+            "category": "Running",
+            "size": "42",
+            "color": "White/Black",
+            "price": 1299000,
+            "stock": 15,
+            "description": "Classic running shoes",
+            "image_url": "https://example.com/nike.jpg",
+            "created_at": "2025-01-01T10:00:00Z"
+        }
+    ],
+    "pagination": {
+        "page": 1,
+        "limit": 10,
+        "total": 150,
+        "totalPages": 15
+    }
+}</code></pre>
+                    </div>
+                </section>
+
+                <!-- Get Shoe by ID -->
+                <section id="get-shoe-by-id" class="docs-section">
+                    <h2>🔍 Get Shoe by ID</h2>
+                    <p>Mendapatkan detail sepatu berdasarkan ID.</p>
+
+                    <div class="endpoint-box">
+                        <span class="method method-get">GET</span>
+                        <code>/shoes/{id}</code>
+                    </div>
+
+                    <h3>Path Parameters</h3>
+                    <table class="docs-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Required</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>id</code></td>
+                                <td>integer</td>
+                                <td>Yes</td>
+                                <td>ID unik sepatu</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Request Example</h3>
+                    <div class="code-example">
+                        <div class="code-header">
+                            <span>JavaScript</span>
+                            <button class="copy-btn" onclick="copyCode(this, 'get-by-id')">📋 Copy</button>
+                        </div>
+                        <pre id="get-by-id"><code>fetch('https://api.shoeapi.com/api/v1/shoes/1', {
+    headers: { 'X-API-Key': 'your_api_key_here' }
+})
+.then(res => res.json())
+.then(data => console.log(data));</code></pre>
+                    </div>
+
+                    <h3>Response Example</h3>
+                    <div class="code-example">
+                        <div class="code-header">
+                            <span>200 OK</span>
+                        </div>
+                        <pre><code>{
+    "success": true,
+    "data": {
+        "id": 1,
+        "brand": "Nike",
+        "model": "Air Max 90",
+        "category": "Running",
+        "size": "42",
+        "color": "White/Black",
+        "price": 1299000,
+        "stock": 15
+    }
+}</code></pre>
+                    </div>
+                </section>
+
+                <!-- Search Shoes -->
+                <section id="search-shoes" class="docs-section">
+                    <h2>🔎 Search Shoes</h2>
+                    <p>Mencari sepatu berdasarkan keyword.</p>
+
+                    <div class="endpoint-box">
+                        <span class="method method-get">GET</span>
+                        <code>/shoes/search</code>
+                    </div>
+
+                    <h3>Query Parameters</h3>
+                    <table class="docs-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Required</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>q</code></td>
+                                <td>string</td>
+                                <td>Yes</td>
+                                <td>Keyword pencarian</td>
+                            </tr>
+                            <tr>
+                                <td><code>page</code></td>
+                                <td>integer</td>
+                                <td>No</td>
+                                <td>Nomor halaman</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Request Example</h3>
+                    <div class="code-example">
+                        <div class="code-header">
+                            <span>Python</span>
+                            <button class="copy-btn" onclick="copyCode(this, 'search-python')">📋 Copy</button>
+                        </div>
+                        <pre id="search-python"><code>import requests
+
+response = requests.get(
+    'https://api.shoeapi.com/api/v1/shoes/search',
+    headers={'X-API-Key': 'your_api_key_here'},
+    params={'q': 'nike', 'page': 1}
+)
+print(response.json())</code></pre>
+                    </div>
+                </section>
+
+                <!-- Errors -->
+                <section id="errors" class="docs-section">
+                    <h2>❌ Error Codes</h2>
+                    <p>API menggunakan HTTP status codes standar.</p>
+
+                    <table class="docs-table">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Meaning</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>200</code></td>
+                                <td>OK</td>
+                                <td>Request berhasil</td>
+                            </tr>
+                            <tr>
+                                <td><code>400</code></td>
+                                <td>Bad Request</td>
+                                <td>Parameter tidak valid</td>
+                            </tr>
+                            <tr>
+                                <td><code>401</code></td>
+                                <td>Unauthorized</td>
+                                <td>API Key tidak valid</td>
+                            </tr>
+                            <tr>
+                                <td><code>404</code></td>
+                                <td>Not Found</td>
+                                <td>Resource tidak ditemukan</td>
+                            </tr>
+                            <tr>
+                                <td><code>429</code></td>
+                                <td>Too Many Requests</td>
+                                <td>Rate limit exceeded</td>
+                            </tr>
+                            <tr>
+                                <td><code>500</code></td>
+                                <td>Server Error</td>
+                                <td>Internal server error</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Error Response Format</h3>
+                    <div class="code-example">
+                        <pre><code>{
+    "success": false,
+    "message": "API Key tidak valid",
+    "error": {
+        "code": "INVALID_API_KEY",
+        "details": "The API key provided is invalid"
+    }
+}</code></pre>
+                    </div>
+                </section>
+
+                <!-- Data Models -->
+                <section id="data-models" class="docs-section">
+                    <h2>📋 Data Models</h2>
+                    
+                    <h3>Shoe Object</h3>
+                    <table class="docs-table">
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>id</code></td>
+                                <td>integer</td>
+                                <td>Unique identifier</td>
+                            </tr>
+                            <tr>
+                                <td><code>brand</code></td>
+                                <td>string</td>
+                                <td>Brand name</td>
+                            </tr>
+                            <tr>
+                                <td><code>model</code></td>
+                                <td>string</td>
+                                <td>Model name</td>
+                            </tr>
+                            <tr>
+                                <td><code>category</code></td>
+                                <td>string</td>
+                                <td>Category type</td>
+                            </tr>
+                            <tr>
+                                <td><code>size</code></td>
+                                <td>string</td>
+                                <td>Shoe size</td>
+                            </tr>
+                            <tr>
+                                <td><code>color</code></td>
+                                <td>string</td>
+                                <td>Color description</td>
+                            </tr>
+                            <tr>
+                                <td><code>price</code></td>
+                                <td>integer</td>
+                                <td>Price in IDR</td>
+                            </tr>
+                            <tr>
+                                <td><code>stock</code></td>
+                                <td>integer</td>
+                                <td>Available stock</td>
+                            </tr>
+                            <tr>
+                                <td><code>description</code></td>
+                                <td>string</td>
+                                <td>Product description</td>
+                            </tr>
+                            <tr>
+                                <td><code>image_url</code></td>
+                                <td>string</td>
+                                <td>Product image URL</td>
+                            </tr>
+                            <tr>
+                                <td><code>created_at</code></td>
+                                <td>datetime</td>
+                                <td>ISO 8601 timestamp</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="/js/auth.js"></script>
+    <script src="/js/docs.js"></script>
+</body>
+</html>
